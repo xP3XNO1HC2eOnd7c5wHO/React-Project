@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../contexts/CartContext.jsx";
 import { CurrencyContext } from "../contexts/CurrencyContext.jsx";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/img/logo.svg";
 import { BsBag } from "react-icons/bs";
 import { CiUser } from "react-icons/ci";
 import { useAuth } from "../contexts/AuthContext"; // Import the auth context
+import { SidebarContext } from "../contexts/SidebarContext";
 
 const Header = () => {
 	// header state
@@ -13,16 +14,17 @@ const Header = () => {
 	const { itemAmount } = useContext(CartContext);
 	const { currentUser, logout } = useAuth(); // Add authentication context
 	const navigate = useNavigate(); // Add navigation hook
+	const { setIsOpen } = useContext(SidebarContext);
 
 	// currency state
-	const { currency } = useContext(CurrencyContext);
+	const { currency, setCurrency } = useContext(CurrencyContext);
 
 	// event listener
 	useEffect(() => {
 		window.addEventListener("scroll", () => {
 			window.scrollY > 60 ? setIsActive(true) : setIsActive(false);
 		});
-	});
+	}, []);
 
 	// Handle user icon click - show dropdown or navigate to login
 	const [showUserMenu, setShowUserMenu] = useState(false);
@@ -64,7 +66,7 @@ const Header = () => {
 					{/* currency select */}
 					<select
 						value={currency}
-						onChange={() => {}}
+						onChange={(e) => setCurrency(e.target.value)}
 						className="border border-slate-800 rounded-md px-3 py-2 focus:outline-none text-slate-800 text-sm"
 						aria-label="Select currency"
 					>
@@ -75,7 +77,7 @@ const Header = () => {
 
 					{/* cart */}
 					<div
-						onClick={() => {}}
+						onClick={() => setIsOpen(true)}
 						className="cart-btn cursor-pointer flex relative"
 						role="button"
 						aria-label="cart"
