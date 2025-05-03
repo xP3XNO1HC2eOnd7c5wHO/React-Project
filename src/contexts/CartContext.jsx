@@ -68,6 +68,17 @@ const CartProvider = ({ children }) => {
 	// decrease amount
 	const decreaseAmount = (id) => {
 		const cartItem = cart.find((item) => item.id === id);
+		if (cartItem) {
+			const newCart = cart.map((item) => {
+				if (item.id === id) {
+					return { ...item, amount: item.amount - 1 };
+				} else {
+					return item;
+				}
+			});
+			// Remove item if amount is 0
+			setCart(newCart.filter((item) => item.amount !== 0));
+		}
 	};
 
 	return (
