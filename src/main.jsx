@@ -8,19 +8,25 @@ import ProductProvider from "./contexts/ProductContext";
 import SidebarProvider from "./contexts/SidebarContext";
 import CartProvider from "./contexts/CartContext";
 import CurrencyProvider from "./contexts/CurrencyContext.jsx";
+import { AuthProvider } from "./contexts/AuthContext";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 createRoot(document.getElementById("root")).render(
-	<SidebarProvider>
-		<CurrencyProvider>
-			<CartProvider>
-				<ProductProvider>
-					<StrictMode>
-						<Router>
-							<App />
-						</Router>
-					</StrictMode>
-				</ProductProvider>
-			</CartProvider>
-		</CurrencyProvider>
-	</SidebarProvider>
+	<StrictMode>
+		<Router>
+			<ErrorBoundary>
+				<AuthProvider>
+					<SidebarProvider>
+						<CurrencyProvider>
+							<CartProvider>
+								<ProductProvider>
+									<App />
+								</ProductProvider>
+							</CartProvider>
+						</CurrencyProvider>
+					</SidebarProvider>
+				</AuthProvider>
+			</ErrorBoundary>
+		</Router>
+	</StrictMode>
 );
