@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { ProductContext } from "../contexts/ProductContext.jsx";
 
 const ProductDetails = () => {
@@ -8,7 +8,7 @@ const ProductDetails = () => {
 	const { products } = useContext(ProductContext);
 
 	//get the single product based on id
-	const product = products[id];
+	const product = products.find(item => item.id === parseInt(id) || item.id === id);
 
 	// if product is not found
 	if (!product) {

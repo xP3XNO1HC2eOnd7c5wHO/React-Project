@@ -1,8 +1,10 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 
 import Home from "./pages/Home";
+import ProductDetails from "./pages/ProductDetails";
+import Checkout from "./pages/Checkout";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
@@ -19,6 +21,8 @@ function App() {
 				<Routes>
 					{/* Public routes */}
 					<Route path="/" element={<Home />} />
+					<Route path="/product/:id" element={<ProductDetails />} />
+					<Route path="/checkout" element={<Checkout />} />
 					<Route path="/signup" element={<Signup />} />
 					<Route path="/login" element={<Login />} />
 
